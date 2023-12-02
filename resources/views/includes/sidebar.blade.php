@@ -30,7 +30,7 @@
               <p>
                 Dashboard
               </p>
-            </a> 
+            </a>
           </li>
           <li class="nav-item">
             <a wire:navigate href="{{route('employeur')}}" class="nav-link">
@@ -64,7 +64,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a wire:navigate href="{{route('config')}}" class="nav-link">
+            <a wire:navigate href="{{route('config')}}" class="nav-link @if(Route::is('config')) active @endif">
               <i class="fa-solid fa-gear nav-icon"></i>
               <p>
                 CONFIGURATION
