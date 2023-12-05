@@ -1,13 +1,17 @@
 <div class="container mt-4">
     <h2>Feuille de routes de Pompistes</h2>
-    <form action="" method="POST">
+    <form wire:submit.prevent="saveVente">
         @csrf
         <div class="row">
             <div class="col-8" >
                 <div class="form-row">
                     <div class="form-group col-12">
-                        <label for="inputDate">Journée du</label>
-                        <input type="date" class="form-control" id="inputDate" name="date" value="{{ $date_jour }}">
+                        <label for="inputDate">Numero Pompe</label>
+                        <select name="mom_pompiste" class="form-control">
+                            <option>Choisir une pompe</option>
+                            <option value="">Pompe A</option>
+                            <option value="">Pompe B</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
@@ -23,54 +27,53 @@
                     </div>
                     <div class="form-group col-6">
                         <label for="Heure">Heure de Service</label>
-                        <select name="service" class="form-control">
-                            <option>Heure de Service</option>
-                            <option value="">8H - 14H</option>
-                            <option value="">14H - 22H</option>
+                        <select name="heure_service" class="form-control">
+                            <option>Veuillez choisir ici</option>
+                            <option value="matin"> {{ $horaires['matin']  }} </option>
+                            <option value="soir"> {{  $horaires['soir'] }} </option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">INDEX DEPART SUPER 91</label>
-                        <input type="number" name="" class="form-control">
+                        <input type="number" name="index_depart_essence" class="form-control">
                     </div>
                     <div class="form-group col-6">
                         <label for="">INDEX ARRIVEE SUPER 91</label>
-                        <input type="number" name="" class="form-control">
+                        <input type="number" name="index_arrive_essence" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="">INDEX DEPART GAZOIL </label>
-                        <input type="number" name="" class="form-control">
+                        <input type="number" name="index_depart_gazoile" class="form-control">
                     </div>
                     <div class="form-group col-6">
                         <label for="">INDEX ARRIVEE GAZOIL</label>
-                        <input type="number" name="" class="form-control">
+                        <input type="number" name="index_arrive_gazoile" class="form-control">
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-1"></div> --}}
             <div class="col-4">
                 <div class="form-row rows-2">
                     <div class="form-group col">
                         <label for="">Qté Super 91</label>
-                        <input type="text" name="" class="form-control"  readonly >
+                        <input type="text" name="qte_essence" class="form-control" readonly>
                     </div>
                     <div class="form-group col">
                         <label for="">Prix Super 91</label>
-                        <input type="text" name="" class="form-control" readonly>
+                        <input type="text" name="prix_essence" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="form-row rows-2">
                     <div class="form-group col">
                         <label for="">Qté Gazoile</label>
-                        <input type="text" name="" class="form-control"  readonly >
+                        <input type="text" name="prix_gazoile" class="form-control"  readonly>
                     </div>
                     <div class="form-group col">
                         <label for="">Prix Gazoile</label>
-                        <input type="text" name="" class="form-control" readonly>
+                        <input type="text" name="qte_gazoile" class="form-control" readonly>
                     </div>
                 </div>
             </div>
