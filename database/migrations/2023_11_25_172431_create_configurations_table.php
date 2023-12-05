@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('prix_litre_essence');
             $table->integer('prix_litre_diesiel');
-            $table->timestamp('heure_debut_service_matin');
-            $table->timestamp('heure_debut_service_soir');
+            $table->time('heure_debut_service_matin');
+            $table->time('heure_debut_service_soir');
+            $table->time('heure_fin_service_matin');
+            $table->time('heure_fin_service_soir');
             $table->timestamps();
         });
     }
