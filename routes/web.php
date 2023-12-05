@@ -6,6 +6,7 @@ use App\Livewire\Dashboard;
 use App\Livewire\VentesListe;
 use App\Livewire\VentesCreate;
 use App\Livewire\Configuration;
+use App\Livewire\VentesDetails;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,5 @@ Route::get('/employers', Employe::class)->name('employeur');
 Route::get('/config', Configuration::class)->name('config');
 Route::get('/vente_create', VentesCreate::class)->name('vente.create');
 Route::get('/vente_index', VentesListe::class)->name('vente.index');
+Route::get('/vente_show', VentesDetails::class)->name('vente.show');
 Route::get('/auth', Connexion::class)->name('login');
