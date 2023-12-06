@@ -9,11 +9,9 @@
     @isset($grid[0])
         <div class="{{ $grid[0] }}">
         @endisset
-
-        <div class="custom-control custom-checkbox">
-            <input value="{{ request()->input($attr['name'], old($attr['name'])) }}" {!! $attr->merge($attrs) !!}
+        <div class="form-check">
+            <input  {!! $attr->merge($attrs) !!}  @if($checked) checked @endif
                 type="checkbox" id="checkbox-{{ $attr['name'] }}">
-
             @if (!empty($label['text']))
                 <label{!! $label['attrs'] !!} for="checkbox-{{ $attr['name'] }}">{!! $label['text'] ?? '' !!}</label>
             @endif

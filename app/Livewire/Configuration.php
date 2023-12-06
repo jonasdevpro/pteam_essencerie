@@ -12,7 +12,7 @@ class Configuration extends Component
     public $prix_litre_essence = 0;
 
     #[Rule("decimal:0|min:0")]
-    public $prix_litre_diesiel = 0;
+    public $prix_litre_diesel = 0;
 
     #[Rule("string")]
     public $heure_debut_service_matin = '';
@@ -35,7 +35,7 @@ class Configuration extends Component
         }else{
             $this->conf = ModelsConfiguration::first();
             $this->prix_litre_essence = $this->conf->prix_litre_essence;
-            $this->prix_litre_diesiel = $this->conf->prix_litre_diesiel;
+            $this->prix_litre_diesel = $this->conf->prix_litre_diesel;
             $this->heure_debut_service_matin = $this->conf->heure_debut_service_matin;
             $this->heure_fin_service_matin = $this->conf->heure_fin_service_matin;
             $this->heure_debut_service_soir = $this->conf->heure_debut_service_soir;
@@ -50,7 +50,7 @@ class Configuration extends Component
 
     public function render()
     {
-        return view('livewire.configuration')->extends('layouts.app')->title('configuration');
+        return view('livewire.configuration')->extends('layouts.app')->title('configuration général');
     }
 
     public function storeConf()
@@ -60,6 +60,5 @@ class Configuration extends Component
         $conf = ModelsConfiguration::first();
         $conf->update($this->all());
         session()->flash('success', 'Configuration enregistré');
-        $this->redirectRoute('config');
     }
 }

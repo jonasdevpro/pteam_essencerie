@@ -15,9 +15,10 @@ return new class extends Migration
             $table->uuid('id');
             $table->string('nom');
             $table->integer('capacite');
-            $table->enum('contenu',['essence', 'diesiel']);
+            $table->enum('contenu',['essence', 'diesel']);
             $table->boolean('active');
-            $table->foreignUuid('gerant_id');
+            $table->text('description')->nullable();
+            $table->foreignUuid('gerant_id')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

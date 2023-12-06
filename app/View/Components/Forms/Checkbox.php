@@ -16,6 +16,7 @@ class Checkbox extends Component
     public $label = [];
     public $validation = [];
     public $attrs;
+    public $checked;
 
     public function __construct(
         $all = [],
@@ -26,7 +27,8 @@ class Checkbox extends Component
         $help = '',
         $name = '',
         $variant = '',
-        $class = ''
+        $class = '',
+        $checked = null
     )
     {
         $this->validation = $validation ?: $all['validation'] ?? [];
@@ -39,12 +41,12 @@ class Checkbox extends Component
             'class' => $class ?: $all['class'] ?? '',
         ];
         $this->attrs['class'] = Classes::get([
-            'custom-control-input',
+            'form-check-input',
             $this->attrs['class'],
             isset($this->validation['type']) ? 'is-' . $this->validation['type'] : ''
         ]);
         $this->label['class'] = Classes::get([
-            'custom-control-label',
+            'form-check-label',
             $this->label
         ]);
         $this->group['class'] = Classes::get([
@@ -56,6 +58,7 @@ class Checkbox extends Component
         $this->group['attrs'] = Attributes::get($this->group);
         $this->attrs = array_filter($this->attrs);
         $this->attrs['name'] = $name ?: $all['name'] ?? '';
+        $this->checked = $checked !== null ? $checked : $all['checked'] ?? false;
     }
 
     public function render()

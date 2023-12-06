@@ -15,12 +15,12 @@ return new class extends Migration
             $table->uuid('id');
             $table->string('nom');
             $table->string('description')->nullable();
-            $table->boolean('essence');
-            $table->boolean('diesel');
+            $table->boolean('essence')->default(false);
+            $table->boolean('diesel')->default(false);
             $table->tinyInteger('active');
-            $table->foreignUuid('user_id');
+            $table->foreignUuid('user_id')->nullable()->constrained('users');
             $table->foreignUuid('cuve_id_essence');
-            $table->foreignUuid('cuve_id_diesiel');
+            $table->foreignUuid('cuve_id_diesel');
             $table->timestamps();
         });
     }
