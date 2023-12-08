@@ -6,8 +6,10 @@ use App\Livewire\Dashboard;
 use App\Livewire\VentesListe;
 use App\Livewire\VentesCreate;
 use App\Livewire\Configuration;
+
 use App\Livewire\Cuve;
 use App\Livewire\Pompe;
+use App\Livewire\VentesDetails;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +36,7 @@ Route::prefix('/config')->name('config.')->group(function () {
 
 Route::get('/vente_create', VentesCreate::class)->name('vente.create');
 Route::get('/vente_index', VentesListe::class)->name('vente.index');
+Route::get('/vente_show', VentesDetails::class)->name('vente.show');
 Route::get('/auth', Connexion::class)->name('login');
 
 Route::fallback(function () {
