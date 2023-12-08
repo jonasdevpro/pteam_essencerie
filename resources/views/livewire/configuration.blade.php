@@ -1,11 +1,20 @@
 <div>
     <x-custom.alert />
-    
+
     <div class="container">
         <h1 class="text-center">Configuration</h1>
         <div class="card ">
             <div class="card-body ">
                 <form wire:submit='storeConf'>
+                    {{-- <fieldset class="border mb-3 px-5 ">
+                        <legend>Station</legend>
+                        <x-forms.input :group="[
+                            'class' => 'mb-3',
+                        ]" name="stationName" type="text" :label="[
+                            'text' => 'Nom de la station',
+                        ]"
+                            :grid="['col-sm-3', 'col-sm-9']" />
+                    </fieldset> --}}
                     <fieldset class="border mb-3 px-5 ">
                         <legend>Prix au litre</legend>
                         <x-forms.input wire:model='prix_litre_essence' :group="[
@@ -15,9 +24,9 @@
                                 'text' => 'Essence',
                             ]" :grid="['col-sm-3', 'col-sm-9']" />
 
-                        <x-forms.input wire:model='prix_litre_diesiel' :group="[
+                        <x-forms.input wire:model='prix_litre_diesel' :group="[
                             'class' => 'mb-3',
-                        ]" name="prix_litre_diesiel"
+                        ]" name="prix_litre_diesel"
                             type="text" :label="[
                                 'text' => 'Gazoil',
                             ]" :grid="['col-sm-3', 'col-sm-9']" />
@@ -54,7 +63,7 @@
                             ]" :grid="['col-sm-3', 'col-sm-9']" />
                     </fieldset>
                     <div class="border float-right">
-                        <button type="submit" class="btn btn-primary ">Enregistrer</button>
+                        <button id="saveButton" type="submit" class="btn btn-primary ">Enregistrer</button>
                     </div>
                 </form>
             </div>
