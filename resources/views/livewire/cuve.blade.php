@@ -58,7 +58,6 @@
         @case('create-tank')
             @include('includes.cuve.create-tank-modal')
         @break
-
         {{-- @case('show-tank')
             @include('includes.cuve.show-tank-modal')
         @break --}}
