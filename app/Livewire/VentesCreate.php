@@ -2,24 +2,34 @@
 
 namespace App\Livewire;
 
+use App\Models\Pompe;
 use Livewire\Component;
 use App\Models\Configuration;
 
 class VentesCreate extends Component
 {
 
-    public $indexDepartEssence;
-    public $indexArriveEssence;
-    public $indexDepartGazoile;
-    public $indexArriveGazoile;
+    public $index_depart_essence;
+    public $index_arrive_essence;
+
+    public $qte_essence;
+    public $prix_essence;
+
+
+    public $index_depart_gazoile;
+    public $index_arrive_gazoile;
     // public $active;
     public $heureService;
     public $chefPisteId;
     public $pompisteId;
     public $pompeId;
     
-    public $horaires;
 
+    public $lubrifiant_vendu = 0;
+    public $gaz_vendu = 0;
+
+    public $horaires;
+    public $liste_pompe;
     public function mount()
     {
         // Récupérer les horaires depuis la table Configuration
@@ -39,19 +49,28 @@ class VentesCreate extends Component
         }
     }
     
-    public function saveVente()
+    protected $listeners = ['index_depart_essence' => 'calculerQuantiteEtPrix', 'index_arrive_essence' => 'calculerQuantiteEtPrix'];
+
+    public function calculerQuantiteEtPrix()
     {
-        $valide = $this->validate([
-            'heureService' =>'required',
-            'chefPisteId' =>'required',
-            'pompisteId' =>'required',
-            'pompeId' =>'required',
-        ]);
-        Ventes::create($valide);
+        $this->qte_essence = $this->index_depart_essence - $this->index_arrive_essence;
+        $this->prix_essence = $this->qte_essence * 850;
+        // dd($this->qte_essence, $this->prix_essence);
     }
 
-    public function render()
+    //recuper la lise ds pompes ici
+    public function listePompe() {
+        $this->liste_pompe =  Pompe::all();
+    }
+
+    public function saveVente()
     {
+        
+    }
+    public function render()
+    {   
+        
+        $this->listePompe(); //passe la methode avant de retourner la vue
         return view('livewire.ventes-create')->extends('layouts.app')->title('Creer une ventes');
     }
 

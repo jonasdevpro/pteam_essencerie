@@ -10,20 +10,22 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->string('nom');
-            $table->string('prenom');
-            $table->integer('tel')->nullable();
-            $table->boolean('active');
-            $table->enum('role', ['gerant', 'chef_piste', 'pompiste']);
-            $table->string('password')->nullable();
-            $table->rememberToken();
-            $table->timestamps();
-            $table->foreignUuid('user_id')->nullable();
-        });
-    }
+{
+    Schema::create('users', function (Blueprint $table) {
+        $table->uuid('id')->primary();
+        $table->string('nom');
+        $table->string('prenom');
+        $table->integer('tel')->nullable();
+        $table->boolean('active');
+        $table->enum('role', ['gerant', 'chef_piste', 'pompiste']);
+        $table->string('password')->nullable();
+        $table->rememberToken();
+        $table->foreignUuid('user_id')->nullable();
+        $table->timestamps();
+    });
+
+}
+
 
     /**
      * Reverse the migrations.

@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cuves', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('nom');
             $table->integer('capacite');
-            $table->enum('contenu',['essence', 'diesel']);
-            $table->boolean('active');
+            $table->enum('contenu', ['essence', 'diesel']);
+            $table->boolean('active')->default(true);
             $table->text('description')->nullable();
             $table->foreignUuid('gerant_id')->nullable()->constrained('users');
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
