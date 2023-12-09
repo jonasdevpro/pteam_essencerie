@@ -19,8 +19,8 @@ return new class extends Migration
             $table->boolean('diesel')->default(false);
             $table->tinyInteger('active');
             $table->foreignUuid('user_id')->nullable()->constrained('users');
-            $table->foreignUuid('cuve_id_essence');
-            $table->foreignUuid('cuve_id_diesel');
+            $table->foreignUuid('cuve_id_essence')->nullable();
+            $table->foreignUuid('cuve_id_diesel')->nullable();
             $table->timestamps();
         });
     }

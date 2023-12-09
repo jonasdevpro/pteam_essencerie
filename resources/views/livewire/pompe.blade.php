@@ -28,11 +28,16 @@
                                 <td>
                                     @if($_pump->diesel ) <i class="fa-solid fa-circle-check" style="color: #00ff00;"></i> @else  <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i> @endif
                                 </td>
-                                <td>{{ $_pump->dieselTank->nom }}</td>
+                                <td>
+
+                                    @if ($_pump->dieselTank?->nom) {{ $_pump->dieselTank->nom }} @else <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i> @endif
+                                </td>
                                 <td>
                                     @if($_pump->essence ) <i class="fa-solid fa-circle-check" style="color: #00ff00;"></i> @else  <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i> @endif
                                 </td>
-                                <td>{{ $_pump->fuelTank->nom }}</td>
+                                <td>
+                                    @if ($_pump->fuelTank?->nom) {{ $_pump->fuelTank?->nom }} @else <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i> @endif
+                                </td>
                                 <td>
                                     <ul class="nav nav-fill" style="max-width: 200px;">
                                         <li class="nav-item">

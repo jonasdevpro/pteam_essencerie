@@ -21,10 +21,10 @@ class PumpForm extends Form
     #[Rule('nullable|string')]
     public $description;
 
-    #[Rule('required|uuid|exists:cuves,id')]
+    #[Rule('nullable|uuid|exists:cuves,id')]
     public $cuve_id_essence;
 
-    #[Rule('required|uuid|exists:cuves,id')]
+    #[Rule('nullable|uuid|exists:cuves,id')]
     public $cuve_id_diesel;
 
     public function store()
