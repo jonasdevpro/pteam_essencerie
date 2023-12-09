@@ -53,7 +53,7 @@ class Configuration extends Component
     public function storeConf()
     {
         $this->validate();
-
+        
         $conf = ModelsConfiguration::first();
         $conf->update($this->all());
         session()->flash('success', 'Configuration enregistré');

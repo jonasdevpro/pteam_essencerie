@@ -33,7 +33,7 @@
   </div>
   <!-- /.content-wrapper -->
 
- @include('includes.footer')
+ {{-- @include('includes.footer') --}}
 
   <!-- /.control-sidebar -->
 </div>
