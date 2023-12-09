@@ -18,10 +18,8 @@ class Configuration extends Component
     public $heure_debut_service_matin = '';
 
     #[Rule("string")]
-    public $heure_fin_service_matin = '';
+    public $heure_releve = '';
 
-    #[Rule("string")]
-    public $heure_debut_service_soir = '';
 
     #[Rule("string")]
     public $heure_fin_service_soir = '';
@@ -37,8 +35,7 @@ class Configuration extends Component
             $this->prix_litre_essence = $this->conf->prix_litre_essence;
             $this->prix_litre_diesel = $this->conf->prix_litre_diesel;
             $this->heure_debut_service_matin = $this->conf->heure_debut_service_matin;
-            $this->heure_fin_service_matin = $this->conf->heure_fin_service_matin;
-            $this->heure_debut_service_soir = $this->conf->heure_debut_service_soir;
+            $this->heure_releve = $this->conf->heure_releve;
             $this->heure_fin_service_soir = $this->conf->heure_fin_service_soir;
         }
     }
