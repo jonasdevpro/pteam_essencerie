@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use DateTime;
 use App\Models\Pompe;
 use Livewire\Component;
 use App\Models\Configuration;
@@ -36,9 +37,13 @@ class VentesCreate extends Component
         $configurations = Configuration::first(); // Supposons qu'il y ait une seule entrée dans la table
 
         if ($configurations) {
+            $heureDebutMatin = new DateTime($configurations->heure_debut_service_matin);
+            $heureReleve = new DateTime($configurations->heure_releve);
+            $heureFinSoir = new DateTime($configurations->heure_fin_service_soir);
+        
             $this->horaires = [
-                'matin' => $configurations->heure_debut_service_matin . ' - ' . $configurations->heure_fin_service_matin,
-                'soir' => $configurations->heure_debut_service_soir . ' - ' . $configurations->heure_fin_service_soir,
+                'matin' => $heureDebutMatin->format('H:i') . ' - ' . $heureReleve->format('H:i'),
+                'soir' => $heureReleve->format('H:i') . ' - ' . $heureFinSoir->format('H:i'),
             ];
         } else {
             // Valeurs par défaut si $configurations est null
@@ -47,6 +52,7 @@ class VentesCreate extends Component
                 'soir' => '00:00 - 00:00',
             ];
         }
+        
     }
     
     protected $listeners = ['index_depart_essence' => 'calculerQuantiteEtPrix', 'index_arrive_essence' => 'calculerQuantiteEtPrix'];
