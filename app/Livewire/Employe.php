@@ -38,13 +38,19 @@ class Employe extends Component
     
     public function saveNew()
     {
-
+      
     $this->validate([
         'nom' => 'required|string|min:2',
         'prenom' => 'required|string|min:2',
         'tel' => 'required|numeric|min:8',
         'active' => 'required|boolean',
     ]);
+    // $this->validate([
+    //     'nom' => 'required|string|min:2',
+    //     'prenom' => 'required|string|min:2',
+    //     'tel' => 'required|numeric|min:8',
+    //     'active' => 'required|boolean',
+    // ]);
     User::create([
 
         'nom'=>$this->nom,
@@ -82,6 +88,9 @@ class Employe extends Component
         $user->update($this->only('nom','prenom','tel','active','role'));
 
         return redirect()->to('employers');
+
+        $user->update($this->only('nom','prenom','tel'));
+
     }
 
     public function logout()
