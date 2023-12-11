@@ -80,6 +80,34 @@
 
 
                     @if($editId == $user->id)
+
+    <tr>
+        <form wire:submit.prevent="save('{{ $user->id }}')" id="a" class="form-control">
+            <td></td>
+            <td><input wire:model="nom" type="text" name="nom" ></td>
+            <td><input wire:model="prenom" type="text" name="prenom"></td>
+            <td><input wire:model="tel" type="number" name="tel"></td>
+            <td>
+                <select name="active" id="" wire:model="active">
+                    <option value="1" @if($active == 1) selected @endif>Oui</option>
+                    <option value="0" @if($active == 0) selected @endif>Non</option>
+                </select>
+            </td>
+            
+            <td>
+                <select name="role" id="" wire:model="role" >
+                    @foreach(['gerant', 'chef_piste', 'pompiste'] as $roleOption)
+                        <option value="{{ $roleOption }}" @if($role == $roleOption) selected @endif>{{ ucfirst($roleOption) }}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <button class="btn btn-primary" type="submit" form="a">Modifier</button>
+            </td>
+        </form>
+    </tr>
+@endif
+
                     <tr>
                         <form wire:submit="save('{{$user->id}}')" id="a">
                         <td>
@@ -112,6 +140,7 @@
                         </tr>
 
                     @endif
+
                 @endforeach
             </tbody>
         </table>

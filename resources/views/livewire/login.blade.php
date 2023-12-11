@@ -2,10 +2,30 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
+
+    
+
+    <div class="card-header bg-primary text-white">{{ __('Connectez-vous') }}</div>
+
                 <div class="card-header bg-primary text-white">{{ __('Connectez-vous') }}</div>
+
 
                 <div class="card-body">
                     <form wire:submit.prevent="login">
+
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        
+
 
                         <div class="mb-3">
                             <label for="tel" class="form-label">Téléphone:</label>

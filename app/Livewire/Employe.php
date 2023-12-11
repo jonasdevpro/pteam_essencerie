@@ -38,7 +38,13 @@ class Employe extends Component
     
     public function saveNew()
     {
-
+      
+    $this->validate([
+        'nom' => 'required|string|min:2',
+        'prenom' => 'required|string|min:2',
+        'tel' => 'required|numeric|min:8',
+        'active' => 'required|boolean',
+    ]);
     // $this->validate([
     //     'nom' => 'required|string|min:2',
     //     'prenom' => 'required|string|min:2',
@@ -79,7 +85,12 @@ class Employe extends Component
     public function save(User $user)
     {
         
+        $user->update($this->only('nom','prenom','tel','active','role'));
+
+        return redirect()->to('employers');
+
         $user->update($this->only('nom','prenom','tel'));
+
     }
 
     public function logout()
