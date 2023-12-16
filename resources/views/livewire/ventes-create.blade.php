@@ -22,21 +22,25 @@
                     <div class="form-group col-6">
                         <label for="inputDate">Nom du Pompiste</label>
                         <select name="mom_pompiste" class="form-control">
-                            <option>Nom du Pompiste</option>
-                            <option value="">Ouedraogo Moussa</option>
-                            <option value="">Kafando Alan</option>
-                            <option value="">Sawadaogo Asmao</option>
-                            <option value="">Kabore Wendyam Billa</option>
+                                @if ($users)
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                @endif
                         </select>
                     </div>
                     <div class="form-group col-6">
                         <label for="Heure">Heure de Service</label>
                         <select name="heure_service" class="form-control">
                             <option>Veuillez choisir ici</option>
-                            <option value="matin"> {{ $horaires['matin'] }} </option>
-                            <option value="soir"> {{ $horaires['soir'] }} </option>
+                            @if ($horaires)
+                                <option value="matin"> {{ $horaires['matin'] }} </option>
+                                <option value="soir"> {{ $horaires['soir'] }} </option>
+                            @else
+                                <option>Aucune heure n'a été ajoutée </option>
+                            @endif
                         </select>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="form-row">
                     <div class="form-group col-6">
@@ -106,7 +110,7 @@
                         }
                     @endphp
                         <label for="">Qté Gazoile</label>
-                        <input type="text" va="prix_gazoile" class="form-control"
+                        <input type="text" name="prix_gazoile" class="form-control"
                         value="{{ $qte_gazoile }}" readonly>
                     </div>
                     <div class="form-group col">

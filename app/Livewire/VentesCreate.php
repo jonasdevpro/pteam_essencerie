@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use DateTime;
+use App\Models\User;
 use App\Models\Pompe;
 use Livewire\Component;
 use App\Models\Configuration;
@@ -31,6 +32,8 @@ class VentesCreate extends Component
 
     public $horaires;
     public $liste_pompe;
+    public $configurations;
+
     public function mount()
     {
         // Récupérer les horaires depuis la table Configuration
@@ -55,19 +58,11 @@ class VentesCreate extends Component
         
     }
     
-    protected $listeners = ['index_depart_essence' => 'calculerQuantiteEtPrix', 'index_arrive_essence' => 'calculerQuantiteEtPrix'];
-
-    public function calculerQuantiteEtPrix()
-    {
-        $this->qte_essence = $this->index_depart_essence - $this->index_arrive_essence;
-        $this->prix_essence = $this->qte_essence * 850;
-        // dd($this->qte_essence, $this->prix_essence);
-    }
-
     //recuper la lise ds pompes ici
     public function listePompe() {
         $this->liste_pompe =  Pompe::all();
     }
+    
 
     public function saveVente()
     {
@@ -77,6 +72,7 @@ class VentesCreate extends Component
     {   
         
         $this->listePompe(); //passe la methode avant de retourner la vue
+        // $this->listEmployer(); //passe la methode avant de retourner la vue
         return view('livewire.ventes-create')->extends('layouts.app')->title('Creer une ventes');
     }
 
