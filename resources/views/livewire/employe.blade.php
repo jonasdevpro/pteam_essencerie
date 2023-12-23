@@ -39,8 +39,8 @@
                 <tr>
                     {{-- <td><input wire:model="id" name="id" type="number"></td> --}}
                     <td><input wire:model="nom" class="form-control @error('password') is-invalid @enderror" type="text" name="nom" placeholder="{{ $user->nom }}"></td>
-                    <td><input wire:model="prenom" type="text" name="prenom" value="{{ $user->prenom }}"></td>
-                    <td><input wire:model="tel" type="number" name="tel" value="{{ $user->tel }}"></td>
+                    <td><input wire:model="prenom" class="form-control @error('password') is-invalid @enderror"type="text" name="prenom" value="{{ $user->prenom }}"></td>
+                    <td><input wire:model="tel" class="form-control @error('password') is-invalid @enderror"type="number" name="tel" value="{{ $user->tel }}"></td>
                     <td>
                     <select name="active" id="" wire:model="active">
                         <option value="1">Oui</option>
