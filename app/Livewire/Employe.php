@@ -72,7 +72,7 @@ class Employe extends Component
     public function startEdite(User $user)
     {
         $this->editId = $user->id;
-       $this->nom = $user->nom;
+        $this->nom = $user->nom;
         $this->prenom = $user->prenom;
         $this->tel = $user->tel;
         $this->active = $user->active;
