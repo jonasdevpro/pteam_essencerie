@@ -24,7 +24,7 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
+                    {{-- <th>ID</th> --}}
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Téléphone</th>
@@ -37,8 +37,8 @@
             <tbody>
                 @if($create)
                 <tr>
-                    <td></td>
-                    <td><input wire:model="nom" type="text" name="nom" placeholder="{{ $user->nom }}"></td>
+                    {{-- <td><input wire:model="id" name="id" type="number"></td> --}}
+                    <td><input wire:model="nom" class="form-control @error('password') is-invalid @enderror" type="text" name="nom" placeholder="{{ $user->nom }}"></td>
                     <td><input wire:model="prenom" type="text" name="prenom" value="{{ $user->prenom }}"></td>
                     <td><input wire:model="tel" type="number" name="tel" value="{{ $user->tel }}"></td>
                     <td>
@@ -59,12 +59,17 @@
                             <button class="btn btn-primary" wire:click="saveNew">Créer</button>
                         </div>
                     </td>
+                    <td>
+                        <div class="button">
+                            <button  class="btn-close" wire:click="annuler">Annuler</button>
+                        </div>
+                    </td>
                    
                 </tr>
             @endif
                 @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        {{-- <td>{{ $user->id }}</td> --}}
                         <td>{{ $user->nom }}</td>
                         <td>{{ $user->prenom }}</td>
                         <td>{{ $user->tel }}</td>
@@ -73,8 +78,32 @@
                         <td>
                             <button class="btn btn-primary" wire:click="startEdite('{{ $user->id }}')"><i class="nav-icon fa-solid fa-pen"></i></button>
                         </td>
-                        <td>
-                            <button class="btn btn-danger" wire:click="deleteUser('{{ $user->id}}')"><i class="nav-icon fa-solid fa-trash"></i></button>
+
+                        <!-- Vue Livewire -->
+                                @if($showModal)
+                                    <div class="modal" tabindex="-1" style="display: block; ">
+                                       <div class="modal-dialog">
+                                           <div class="modal-content">
+                                             <div class="modal-header">
+                                            <h5 class="modal-title">Confirmation</h5>
+                                                <button type="button" class="btn-close" wire:click="closeModal" aria-label="Close"></button>
+                                               </div>
+                                                 <div class="modal-body">
+                                                 <p>Êtes-vous sûr de vouloir supprimer cet utilisateur?</p>
+                                                </div>
+                                                  <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" wire:click="closeModal">Annuler</button>
+                                                <button type="button" class="btn btn-danger" wire:click="deleteUser('{{ $userIdToDelete }}')">Supprimer</button>
+                                          </div>
+                                       </div>
+                                   </div>
+                                    </div>
+                               @endif
+
+                        <td>    
+                                <button class="btn btn-danger" wire:click="confirmDeleteUser('{{ $user->id }}')">
+                                    <i class="nav-icon fa-solid fa-trash"></i>
+                                </button>
                         </td>
                     </tr>
 
@@ -82,7 +111,7 @@
                     @if($editId == $user->id)
     <tr>
         <form wire:submit.prevent="save('{{ $user->id }}')" id="a" class="form-control">
-            <td></td>
+            {{-- <td><input wire:model="id" type="number" name="id"></td> --}}
             <td><input wire:model="nom" type="text" name="nom" ></td>
             <td><input wire:model="prenom" type="text" name="prenom"></td>
             <td><input wire:model="tel" type="number" name="tel"></td>
@@ -102,6 +131,11 @@
             </td>
             <td>
                 <button class="btn btn-primary" type="submit" form="a">Modifier</button>
+            </td>
+            <td>
+                <div class="button">
+                    <button class="btn btn-light" wire:click="annuler">Annuler</button>
+                </div>
             </td>
         </form>
     </tr>
