@@ -109,6 +109,7 @@
 
 
                     @if($editId == $user->id)
+
     <tr>
         <form wire:submit.prevent="save('{{ $user->id }}')" id="a" class="form-control">
             {{-- <td><input wire:model="id" type="number" name="id"></td> --}}
@@ -140,6 +141,39 @@
         </form>
     </tr>
 @endif
+
+                    <tr>
+                        <form wire:submit="save('{{$user->id}}')" id="a">
+                        <td>
+                            </td>
+                                
+                                <td><input wire:model="nom" type="text" name="nom" class="form-control"></td>
+                                <td><input wire:model="prenom" type="text" name="prenom"></td>
+                                <td><input wire:model="tel" type="number" name="tel"></td>
+                           {{-- <td>
+                            <select name="active" id="" wire:model="active">
+                                <option value="">Oui</option>
+                                <option value="">Non</option>
+
+                            </select>
+                            </td>
+                           <td> <select name="role" id="" wire:model="role" class="form-control">
+                                <option value="gerant">Gérant</option>
+                                <option value="chef_piste">Chef de piste</option>
+                                <option value="pompiste">Pompiste</option>
+                                 </select>
+                            </td> --}}
+                           
+                            <td>
+                              
+                                    <button class="btn btn-primary" type="submit" form="a">Modifier</button>
+                             
+                            </td>
+                           
+                        </form>
+                        </tr>
+
+                    @endif
 
                 @endforeach
             </tbody>
