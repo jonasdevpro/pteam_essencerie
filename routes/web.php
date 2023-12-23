@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/vente_create', VentesCreate::class)->name('vente.create');
     Route::get('/vente_index', VentesListe::class)->name('vente.index');
     Route::delete('/employers/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/vente_show', VentesDetails::class)->name('vente.show');
+    Route::get('/vente_show/{id}', VentesDetails::class)->name('vente.show');
 });
 
 Route::get('/employers/login', Login::class)->name('login');
