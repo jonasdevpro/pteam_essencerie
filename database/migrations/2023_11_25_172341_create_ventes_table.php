@@ -13,15 +13,22 @@ return new class extends Migration
     {
         Schema::create('ventes', function (Blueprint $table) {
             $table->uuid('id');
-            $table->integer('index_depart_essence');
-            $table->integer('index_arrive_essence');
-            $table->integer('index_depart_gazoile');
-            $table->integer('index_arrive_gazoile');
-            $table->boolean('active');
+            $table->string('heure_service');
+            $table->string('index_depart_essence');
+            $table->string('index_arrive_essence');
+            $table->string('index_depart_gazoile');
+            $table->string('index_arrive_gazoile');
+            $table->string('qte_essence');
+            $table->string('prix_essence');
+            $table->string('qte_gazoile');
+            $table->string('prix_gazoile');
+            $table->string('montant');
+            $table->string('montant_recu');
+            $table->string('ecart');
+            $table->boolean('active')->default(true);
             $table->foreignUuid('chef_piste_id');
             $table->foreignUuid('pompiste_id');
             $table->foreignUuid('pompe_id');
-            $table->timestamp('heure_service');
             $table->timestamps();
         });
     }

@@ -5,21 +5,9 @@
           <h3 class="card-title">Journal de Board Ventes</h3>
 
           <div class="card-tools">
-            <div class="input-group input-group-sm" style="width: 300px;">
-              <label for="startDate" class="sr-only">Date de début</label>
-              <input type="date" name="start_date" id="startDate" class="form-control" placeholder="Date de début" required>
-              
-              <label for="endDate" class="sr-only">Date de fin</label>
-              <input type="date" name="end_date" id="endDate" class="form-control" placeholder="Date de fin" required>
-        
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-danger">
-                  <i class="fas fa-calendar-alt"></i>
-                </button>
-              </div>
-            </div>
+           17/12/2023
           </div>          
-          </div>
+        </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0" style="height: 450px;">
@@ -39,7 +27,7 @@
                 </tr>
               </thead>
               <tbody>
-                @for ($i=0; $i<100; $i++ )
+                @for ($i=0; $i<4; $i++ )
                 <tr>
                   <td><a href="{{route('vente.show')}}">12-7-2023</a></td>
                   <td>100</td>
