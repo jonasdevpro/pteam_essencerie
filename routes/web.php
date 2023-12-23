@@ -3,6 +3,7 @@
 use App\Livewire\Cuve;
 use App\Livewire\Login;
 use App\Livewire\Pompe;
+use App\Http\Controllers\ProduitController;
 use App\Livewire\Employe;
 use App\Livewire\Connexion;
 use App\Livewire\Dashboard;
@@ -10,6 +11,8 @@ use App\Livewire\Dashboard;
 use App\Livewire\VentesListe;
 use App\Livewire\VentesCreate;
 use App\Livewire\Configuration;
+use App\Livewire\CreateProduit;
+use App\Livewire\ListProduit;
 use App\Livewire\VentesDetails;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +44,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/vente_index', VentesListe::class)->name('vente.index');
     Route::delete('/employers/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/vente_show/{id}', VentesDetails::class)->name('vente.show');
-});
 
+    Route::get('/liste', ListProduit::class)->name('liste');
+    Route::get('/create', CreateProduit::class)->name('create');
+    Route::get('/edit/{produit}', CreateProduit::class)->name('produit.edit');
+});
 Route::get('/employers/login', Login::class)->name('login');
