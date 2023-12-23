@@ -30,7 +30,7 @@
               <p>
                 Dashboard
               </p>
-            </a> 
+            </a>
           </li>
           <li class="nav-item">
             <a wire:navigate href="{{route('employeur')}}" class="nav-link">
@@ -70,6 +70,39 @@
                 CONFIGURATION
               </p>
             </a>
+          </li>
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-book nav-icon"></i>
+              <p>
+                produit
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: block;">
+              <li class="nav-item">
+                <a wire:navigate href="/create" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ajouter</p>
+                </a>
+              </li>
+              </li>
+               <li class="nav-item">
+                <a wire:navigate href="/liste" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>liste</p>
+                </a>
+              </li>
+            </li>
+
+           <li class="nav-item">
+            <a wire:navigate href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>commande</p>
+            </a>
+          </li>
+
+            </ul>
           </li>
         </ul>
       </nav>

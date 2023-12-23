@@ -1,4 +1,4 @@
-s<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pompes', function (Blueprint $table) {
+        Schema::create('produits', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('nom');
-            $table->string('description')->nullable();
-            $table->boolean('essence');
-            $table->boolean('diesel');
-            $table->tinyInteger('active');
-            $table->foreignUuid('user_id');
-            $table->foreignUuid('cuve_id_essence');
-            $table->foreignUuid('cuve_id_diesiel');
+            $table->integer('prix');
+            $table->integer('quantite')->default(0);
+            $table->integer('stock_alert');
             $table->timestamps();
+
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pompes');
+        Schema::dropIfExists('produits');
     }
 };
