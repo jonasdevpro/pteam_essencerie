@@ -22,8 +22,9 @@ class Employe extends Component
     public $active = "1";
     public $tel = "";
     public $role = "pompiste";
-    
     public $create = false;
+    public $showModal = false;
+    public $userIdToDelete;
 
 
 
@@ -93,6 +94,12 @@ class Employe extends Component
 
     }
 
+    public function annuler(){
+
+        return redirect()->to('employers');
+
+    }
+
     public function logout()
     {
         Auth::logout();
@@ -104,7 +111,16 @@ class Employe extends Component
         $this->user = $user;
     }
 
-   
+    public function confirmDeleteUser($userId)
+    {
+        $this->userIdToDelete = $userId;
+        $this->showModal = true;
+    }
+    
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     public function deleteUser($userId)
 {
@@ -113,6 +129,9 @@ class Employe extends Component
     if ($user) {
         $user->delete();
     }
+    return redirect()->to('employers');
+
+    
 }
 
 
@@ -124,6 +143,7 @@ class Employe extends Component
                 ->orwhere('prenom', 'LIKE', "%$this->recherche%")
                 ->orwhere('Tel', 'LIKE', "%$this->recherche%")
                 ->orwhere('role', 'LIKE', "%$this->recherche%")
+                ->orderby('nom')
                 ->get()
           ])->extends('layouts.app')->title('employers');
     }
