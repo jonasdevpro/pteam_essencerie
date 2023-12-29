@@ -38,6 +38,29 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item menu-is-opening menu-open">
+                    <a href="#" class="nav-link text-white">
+                        <i class="fa-solid fa-book nav-icon text-white"></i>
+                        <p>
+                            PRODUITS
+                            <i class="right fas fa-angle-left text-white"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: block;">
+                        <li class="nav-item">
+                            <a wire:navigate href="/create" class="nav-link text-white">
+                                <i class="far fa-circle nav-icon text-white"></i>
+                                <p>Ajouter</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a wire:navigate href="/liste" class="nav-link text-white">
+                                <i class="far fa-circle nav-icon text-white"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
                         <i class="fa-solid fa-book nav-icon text-white"></i>
@@ -89,29 +112,6 @@
                                 class="nav-link @if (Route::is('config.cuves')) active @endif text-white">
                                 <i class="far fa-circle nav-icon text-white"></i>
                                 <p>Cuves</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu-is-opening menu-open">
-                    <a href="#" class="nav-link text-white">
-                        <i class="fa-solid fa-book nav-icon text-white"></i>
-                        <p>
-                            produit
-                            <i class="right fas fa-angle-left text-white"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview" style="display: block;">
-                        <li class="nav-item">
-                            <a wire:navigate href="/create" class="nav-link text-white">
-                                <i class="far fa-circle nav-icon text-white"></i>
-                                <p>ajouter</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a wire:navigate href="/liste" class="nav-link text-white">
-                                <i class="far fa-circle nav-icon text-white"></i>
-                                <p>liste</p>
                             </a>
                         </li>
                     </ul>
