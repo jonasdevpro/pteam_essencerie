@@ -26,10 +26,10 @@ class CreateProduit extends Component
     public function save(){
 
         $this->validate([
-            'nom'=> 'required',
-            'prix'=> 'required',
-            'quantite'=> 'required',
-            'stock_alert'=> 'required',
+            'nom'=> 'required|string|min:3,max:20',
+            'prix'=> 'required|numeric|min:2',
+            'quantite'=> 'required|integer|min:1',
+            'stock_alert'=> 'required|integer|min:1',
         ]);
         Produit::create([
             'nom' =>$this->nom,
@@ -48,12 +48,11 @@ class CreateProduit extends Component
     }
 
     public function modifier(Produit $produit){
-        // $produit->update([
-        //     'nom' => $this->nom,
-        //     'reference' => $this->reference,
-        // ]);
 
         $produit->update($this->only("nom", "prix","quantite","stock_alert"));
+
+            session()->flash('success', 'Produit modifier avec succès!');
+            
         $this->redirect('/liste');
         // $produit->update($this->all());
     }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->integer('prix');
             $table->integer('quantite')->default(0);
+            $table->integer('stock');
             $table->integer('stock_alert');
             $table->timestamps();
 
