@@ -2,10 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Journal de Board Ventes</h3>
+                <h3 class="card-title">Journal de Ventes de la Semaine </h3>
 
                 <div class="card-tools">
-                    17/12/2023
+
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($ventes as $vente)
+                    @forelse ($ventes as $vente)
                         <tr>
                             <td><a
                                     href="{{ route('vente.show', ['id' => $vente->id]) }}">{{ $vente->created_at->format('d-m-Y') }}</a>
@@ -44,7 +44,11 @@
                             <td>{{ $vente->prix_gazoile }} FCFA</td>
                             <td>{{ $vente->montant }} FCFA</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <td colspan="6">
+                            <h4 class="text-center text-warning">Aucune ventes Enrégistrer ⚠️</h4>
+                        </td>
+                    @endforelse
                 </tbody>
             </table>
         </div>

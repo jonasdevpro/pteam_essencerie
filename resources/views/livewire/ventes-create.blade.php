@@ -45,19 +45,19 @@
                 <div class="form-row">
                     <div class="form-group col-6">
 
-                        <label for="">INDEX DEPART SUPER 91 | {{ $index_depart_essence }}</label>
+                        <label for="">INDEX DEPART SUPER 91</label>
                         <input type="number" name="index_depart_essence" class="form-control"
                             wire:model.live="index_depart_essence">
                     </div>
                     <div class="form-group col-6">
-                        <label for="">INDEX ARRIVEE SUPER 91 | {{ $index_arrive_essence }}</label>
+                        <label for="">INDEX ARRIVEE SUPER 91</label>
                         <input type="number" name="index_arrive_essence" class="form-control"
                             wire:model.live="index_arrive_essence">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-6">
-                        <label for="">INDEX DEPART GAZOIL | {{ $index_depart_gazoile }}</label>
+                        <label for="">INDEX DEPART GAZOIL</label>
                         <input type="number" name="index_depart_gazoile" class="form-control"
                             wire:model.live="index_depart_gazoile">
                     </div>
