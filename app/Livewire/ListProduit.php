@@ -39,50 +39,17 @@ class ListProduit extends Component
         $this->confirmingProduitDeletion = false;
     }
 
-    // public function render()
-    // {
-    //     $produits = Produit::where('nom', 'like', "%{$this->search}%")
-    //         ->orWhere('prix', 'like', "%{$this->search}%")
-    //         ->orderBy('created_at', 'asc')
-    //         ->paginate(10);
-
-
-    // public function Delete($produitId)
-    // {
-    //     $produit= Produit::find($produitId);
-    //     if($produit)
-    //     {
-    //         $produit->delete();
-    //     }
-
-    // }
-
-
-    // public function render()
-    // {
-
-    //     return view('livewire.list-produit', [
-    //         'produits' => Produit::where('nom', 'like', "% {$this->search }%")
-    //                 ->orWhere('prix', 'like', "% {$this->search }%")
-    //                 ->orderBy('created_at', 'asc')
-    //                 ->paginate(10)
-    //     ])->extends('layouts.app')->title('authentification');
-    // }
-
-
     public function render()
-{
-    $produits = Produit::where('nom', 'like', "%{$this->search}%")
-        ->orWhere('prix', 'like', "%{$this->search}%")
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+    {
+        $produits = Produit::where('nom', 'like', "%{$this->search}%")
+            ->orWhere('prix', 'like', "%{$this->search}%")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
-    // dd($produits);
-
-    return view('livewire.list-produit', [
-        'produits' => $produits,
-    ])->extends('layouts.app')->title('authentification');
-}
+        return view('livewire.list-produit', [
+            'produits' => $produits,
+        ])->extends('layouts.app')->title('authentification');
+    }
 
 
 }

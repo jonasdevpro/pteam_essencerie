@@ -1,8 +1,8 @@
 <aside class="main-sidebar elevation-4" style="background-color: #2e2727; color: white;">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard') }}" class="brand-link">
-        <img src="https://img.freepik.com/free-vector/save-fuel-pump-icon-petrol-station-sign-gas-station-sign-fuel-background_460848-14750.jpg?w=740&t=st=1703811446~exp=1703812046~hmac=ea02428bb1dd3af4edd42113bbe59c45b3d25e4efeae5759a0ae22d7e1a3d1a2"
-            alt="Station" class="brand-image img-circle elevation-4" style="opacity: .8">
+        <img src="{{ asset('dist/img/logo.jpg') }}" alt="Station" class="brand-image img-circle elevation-4"
+            style="opacity: .8">
         <div class="brand-text-container">
             <p class="brand-text font-weight-bold">APRIL OIL</p>
         </div>
