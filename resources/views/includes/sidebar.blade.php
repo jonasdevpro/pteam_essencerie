@@ -1,6 +1,6 @@
 <aside class="main-sidebar elevation-4" style="background-color: #2e2727; color: white;">
     <!-- Brand Logo -->
-    <a href="{{ route('dashboard') }}" class="brand-link">
+    <a href="{{ route('profile_statut') }}" class="brand-link">
         <img src="{{ asset('dist/img/logo.jpg') }}" alt="Station" class="brand-image img-circle elevation-4"
             style="opacity: .8">
         <div class="brand-text-container">
