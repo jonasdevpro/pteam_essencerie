@@ -10,8 +10,6 @@
             </div>
         </div>
         <x-custom.message-alert />
-        <!-- /.card-header -->
-        <!-- ventes-liste.blade.php -->
 
         <div class="card-body table-responsive p-0" style="height: 450px;">
             <table class="table table-striped table-bordered text-nowrap">

@@ -40,11 +40,11 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="quantite">Quantité</label>
-                                    <input name="quantite" type="number"
-                                        class="form-control @error('quantite') is-invalid @enderror"
-                                        placeholder="Quantité" wire:model="quantite">
-                                    @error('quantite')
+                                    <label for="stock">Quantité</label>
+                                    <input name="stock" type="number"
+                                        class="form-control @error('stock') is-invalid @enderror" placeholder="Quantité"
+                                        wire:model="stock">
+                                    @error('stock')
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>

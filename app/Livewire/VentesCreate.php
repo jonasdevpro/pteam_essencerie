@@ -65,73 +65,74 @@ class VentesCreate extends Component
     }
 
     public function saveVentes()
-{
-    $this->validate($this->rules());
-
-    $prixEssence = ($this->index_arrive_essence - $this->index_depart_essence) * $this->unite_e;
-    $prixGazoile = ($this->index_arrive_gazoile - $this->index_depart_gazoile) * $this->unite_g;
-    $montant = $prixGazoile + $prixEssence;
-    $ecart = $this->montant_recu - $montant;
-
-    try {
-        // Vérifiez d'abord si le produit est sélectionné
-        if ($this->selectedProduit) {
-            // Vérifiez si le stock est suffisant par rapport au seuil d'alerte
-            $produit = Produit::find($this->selectedProduit);
-            if ($produit->stock >= $produit->stock_alert) {
-                $vente = new Vente([
-                    'chef_piste_id' => Auth::user()->id,
-                    'pompiste_id' => $this->pompisteId,
-                    'pompe_id' => $this->pompeId,
-                    'heure_service' => $this->heureService,
-                    'index_depart_essence' => $this->index_depart_essence,
-                    'index_arrive_essence' => $this->index_arrive_essence,
-                    'index_depart_gazoile' => $this->index_depart_gazoile,
-                    'index_arrive_gazoile' => $this->index_arrive_gazoile,
-                    'qte_essence' => $this->index_arrive_essence - $this->index_depart_essence,
-                    'prix_essence' => $prixEssence,
-                    'qte_gazoile' => $this->index_arrive_gazoile - $this->index_depart_gazoile,
-                    'prix_gazoile' => $prixGazoile,
-                    'montant_recu' => $this->montant_recu,
-                    'montant' => $montant,
-                    'ecart' => $ecart,
-                    'produit_id' => $this->selectedProduit,
-                    'qte_produis_vendues' => $this->quantiteVendue,
-                ]);
-
-                // Enregistrez d'abord la vente
-                $vente->save();
-
-                // Soustrayez la quantité vendue du stock du produit
-                $produit->stock -= $this->quantiteVendue;
-                $produit->save();
-
-                $this->reset([
-                    'pompisteId',
-                    'pompeId',
-                    'heureService',
-                    'index_depart_essence',
-                    'index_arrive_essence',
-                    'index_depart_gazoile',
-                    'index_arrive_gazoile',
-                    'montant_recu',
-                ]);
-
-                session()->flash('success', 'Opération créée avec succès!');
-                $this->redirect('/vente_index');
-            } else {
-                // Redirigez vers la page des produits pour renouveler le stock
-                session()->flash('error', 'Stock insuffisant. Veuillez renouveler le stock du produit.');
-                $this->redirect('/produits');
-            }
-        }
-    } catch (\PDOException $e) {
-        Log::error('Erreur PDO: ' . $e->getMessage());
-        $this->redirect('/config/général');
-    }
-}
-
     
+    {
+        $this->validate($this->rules());
+
+        $prixEssence = ($this->index_arrive_essence - $this->index_depart_essence) * $this->unite_e;
+        $prixGazoile = ($this->index_arrive_gazoile - $this->index_depart_gazoile) * $this->unite_g;
+        $montant = $prixGazoile + $prixEssence;
+        $ecart = $this->montant_recu - $montant;
+
+        try {
+            // Vérifiez d'abord si le produit est sélectionné
+            if ($this->selectedProduit) {
+                // Vérifiez si le stock est suffisant par rapport au seuil d'alerte
+                $produit = Produit::find($this->selectedProduit);
+                
+                if ($produit->stock_alert >= $produit->stock) {
+                    // Redirigez vers la page des produits pour renouveler le stock
+                    session()->flash('error', 'Stock insuffisant. Veuillez renouveler le stock du produit.');
+                    $this->redirect('/liste');                    
+                } else {
+                    $vente = new Vente([
+                        'chef_piste_id' => Auth::user()->id,
+                        'pompiste_id' => $this->pompisteId,
+                        'pompe_id' => $this->pompeId,
+                        'heure_service' => $this->heureService,
+                        'index_depart_essence' => $this->index_depart_essence,
+                        'index_arrive_essence' => $this->index_arrive_essence,
+                        'index_depart_gazoile' => $this->index_depart_gazoile,
+                        'index_arrive_gazoile' => $this->index_arrive_gazoile,
+                        'qte_essence' => $this->index_arrive_essence - $this->index_depart_essence,
+                        'prix_essence' => $prixEssence,
+                        'qte_gazoile' => $this->index_arrive_gazoile - $this->index_depart_gazoile,
+                        'prix_gazoile' => $prixGazoile,
+                        'montant_recu' => $this->montant_recu,
+                        'montant' => $montant,
+                        'ecart' => $ecart,
+                        'produit_id' => $this->selectedProduit,
+                        'qte_produis_vendues' => $this->quantiteVendue,
+                    ]);
+                    // Enregistrez d'abord la vente
+                    $vente->save();
+                    // Soustrayez la quantité vendue du stock du produit
+                    $produit->stock -= $this->quantiteVendue;
+                    $produit->save();
+
+                    $this->reset([
+                        'pompisteId',
+                        'pompeId',
+                        'heureService',
+                        'index_depart_essence',
+                        'index_arrive_essence',
+                        'index_depart_gazoile',
+                        'index_arrive_gazoile',
+                        'montant_recu',
+                    ]);
+
+                    session()->flash('success', 'Opération créée avec succès!');
+                    $this->redirect('/vente_index');
+                }
+            }
+        } catch (\PDOException $e) {
+            Log::error('Erreur PDO: ' . $e->getMessage());
+            // dd($e->getMessage());
+            session()->flash('error', 'Stock insuffisant. Veuillez renouveler le stock du produit.');
+            $this->redirect('/vente_index');
+        }
+    }
+
     private function config()
     {
         $configurations = Configuration::first();

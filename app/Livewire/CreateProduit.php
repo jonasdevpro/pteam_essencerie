@@ -9,7 +9,7 @@ class CreateProduit extends Component
 {
     public $nom = '';
     public $prix = '';
-    public $quantite = '';
+    public $stock = '';
     public $stock_alert = '';
 
     public Produit $produit;
@@ -19,7 +19,7 @@ class CreateProduit extends Component
 
         $this->nom = $produit->nom;
         $this->prix = $produit->prix;
-        $this->quantite =$produit->quantite;
+        $this->stock =$produit->stock;
         $this->stock_alert =$produit->stock_alert;
     }
 
@@ -28,13 +28,13 @@ class CreateProduit extends Component
         $this->validate([
             'nom'=> 'required|string|min:3,max:20',
             'prix'=> 'required|numeric|min:2',
-            'quantite'=> 'required|integer|min:1',
+            'stock'=> 'required|integer|min:1',
             'stock_alert'=> 'required|integer|min:1',
         ]);
         Produit::create([
             'nom' =>$this->nom,
             'prix' =>$this->prix,
-            'stock' =>$this->quantite,
+            'stock' =>$this->stock,
             'stock_alert' =>$this->stock_alert,
         ]);
         session()->flash('success', 'Produit créé avec succès!');
@@ -49,7 +49,7 @@ class CreateProduit extends Component
 
     public function modifier(Produit $produit){
 
-        $produit->update($this->only("nom", "prix","quantite","stock_alert"));
+        $produit->update($this->only("nom", "prix","stock","stock_alert"));
 
             session()->flash('success', 'Produit modifier avec succès!');
             

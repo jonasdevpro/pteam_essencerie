@@ -1,5 +1,6 @@
 <div class="container-fluid">
     <h3 class="text-center bg-danger p-2">Feuille de routes de Pompistes</h3>
+    <x-custom.message-alert />
     <form wire:submit.prevent="saveVentes">
         @csrf
         <div class="row">
@@ -94,7 +95,8 @@
                     <div class="form-group col-6">
                         <label for="selectProduit">Choisissez un produit</label>
                         <select class="form-control" wire:model="selectedProduit">
-                            <option value="" selected disabled>Sélectionnez un produit</option>
+                            <option>Sélectionnez un produit</option>
+                            {{-- @dump($listeProduits) --}}
                             @foreach ($listeProduits as $produit)
                                 <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
                             @endforeach
@@ -105,13 +107,6 @@
                         <input type="number" class="form-control" wire:model="quantiteVendue">
                     </div>
                 </div>
-
-                @if ($selectedProduit)
-                    <div>
-                        <p>Stock disponible pour {{ $selectedProduit->nom }} : {{ $selectedProduit->stock }}</p>
-                    </div>
-                @endif
-
             </div>
             {{-- // ---------Section a droie ------------------------------------------------------- --}}
             <div class="col-4">
@@ -185,7 +180,7 @@
             </div>
         </div>
         <div class="text-right">
-            <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
     </form>
 
