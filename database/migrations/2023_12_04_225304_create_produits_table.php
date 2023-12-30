@@ -15,8 +15,7 @@ return new class extends Migration
             $table->uuid('id');
             $table->string('nom');
             $table->integer('prix');
-            $table->integer('quantite')->default(0);
-            $table->integer('stock');
+            $table->integer('stock')->default(0);
             $table->integer('stock_alert');
             $table->timestamps();
 

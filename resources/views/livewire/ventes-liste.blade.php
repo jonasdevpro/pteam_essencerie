@@ -9,6 +9,7 @@
                 </div>
             </div>
         </div>
+        <x-custom.message-alert />
         <!-- /.card-header -->
         <!-- ventes-liste.blade.php -->
 

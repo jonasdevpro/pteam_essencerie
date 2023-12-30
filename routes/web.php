@@ -3,18 +3,19 @@
 use App\Livewire\Cuve;
 use App\Livewire\Login;
 use App\Livewire\Pompe;
-use App\Http\Controllers\ProduitController;
 use App\Livewire\Employe;
+use App\Livewire\Station;
 use App\Livewire\Connexion;
 use App\Livewire\Dashboard;
 
+use App\Livewire\ListProduit;
 use App\Livewire\VentesListe;
 use App\Livewire\VentesCreate;
 use App\Livewire\Configuration;
 use App\Livewire\CreateProduit;
-use App\Livewire\ListProduit;
 use App\Livewire\VentesDetails;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProduitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::fallback(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('/profile_statut', Station::class)->name('profile_statut');
 
     Route::get('/employers', Employe::class)->name('employeur');
     Route::prefix('/config')->name('config.')->group(function () {

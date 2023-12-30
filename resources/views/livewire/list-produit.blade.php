@@ -25,7 +25,6 @@
                 <thead>
                     <th>Nom produit</th>
                     <th>Prix </th>
-                    <th>Quantité</th>
                     <th>Stock disponible</th>
                     <th>Seuil alerte</th>
                     <th>Actions</th>
@@ -35,9 +34,8 @@
                         <tr>
                             <td>{{ $produit->nom }}</td>
                             <td>{{ $produit->prix }} FCFA</td>
-                            <td>{{ $produit->quantite }}</td>
-                            <td>0</td>
-                            <td>3</td>
+                            <td> {{ $produit->stock }} </td>
+                            <td> {{ $produit->stock_alert }} </td>
                             <td>
                                 <ul class="nav nav-fill">
                                     <li class="nav-item">

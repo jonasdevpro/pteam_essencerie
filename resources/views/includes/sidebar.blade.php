@@ -116,6 +116,11 @@
                         </li>
                     </ul>
                 </li>
+                {{-- <div class="col-md-6 d-flex align-items-end justify-content-end">
+                    <form>
+                        <button wire:click="logout" class="btn btn-danger">Déconnexion</button>
+                    </form>
+                </div> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -34,7 +34,7 @@ class CreateProduit extends Component
         Produit::create([
             'nom' =>$this->nom,
             'prix' =>$this->prix,
-            'quantite' =>$this->quantite,
+            'stock' =>$this->quantite,
             'stock_alert' =>$this->stock_alert,
         ]);
         session()->flash('success', 'Produit créé avec succès!');
