@@ -14,7 +14,7 @@
             <form class="search filter-form">
                 @csrf
                 <div class="card-header">
-                    <input wire:model.live="search" type="text" placeholder="Recherche 'nom' 'prix'"
+                    <input wire:model.live="search" type="text" placeholder="Recherche un produit ?"
                         class="form-control">
 
                 </div>
@@ -34,14 +34,22 @@
                         <tr>
                             <td>{{ $produit->nom }}</td>
                             <td>{{ $produit->prix }} FCFA</td>
-                            <td> {{ $produit->stock }} </td>
+                            <td>
+                                @if ($produit->stock_alert >= $produit->stock)
+                                    {{ $produit->stock }}
+                                    <i class="fa-solid fa-arrow-trend-down" style="color: red; font-size:24px"></i>
+                                @else
+                                    {{ $produit->stock }}
+                                    <i class="fa-solid fa-arrow-trend-up" style="color: green;font-size:20px"></i>
+                                @endif
+                            </td>
                             <td> {{ $produit->stock_alert }} </td>
                             <td>
                                 <ul class="nav nav-fill">
                                     <li class="nav-item">
                                         <a href="{{ route('produit.edit', $produit) }}">
-                                            <button class="btn-primary"><i
-                                                    class="nav-icon fa-solid fa-pen"></i></button>
+                                            <i class="fa-regular fa-pen-to-square"
+                                                style="color: rgb(31, 163, 146);font-size:24px"></i>
                                         </a>
                                     </li>
                                     <li>

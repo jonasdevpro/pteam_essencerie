@@ -42,6 +42,7 @@ class Cuve extends Component
         $this->form->store();
         $this->reset();
         $this->closeModal();
+        $this->redirect('/config/pompes');
     }
 
     private function getTanks()

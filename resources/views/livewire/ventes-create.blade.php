@@ -91,11 +91,12 @@
                         @enderrorrror invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
+                <hr>
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="selectProduit">Choisissez un produit</label>
                         <select class="form-control" wire:model="selectedProduit">
-                            <option>Sélectionnez un produit</option>
+                            <option value="aucun-produit">Sélectionnez un produit</option>
                             {{-- @dump($listeProduits) --}}
                             @foreach ($listeProduits as $produit)
                                 <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
@@ -107,6 +108,8 @@
                         <input type="number" class="form-control" wire:model="quantiteVendue">
                     </div>
                 </div>
+
+
             </div>
             {{-- // ---------Section a droie ------------------------------------------------------- --}}
             <div class="col-4">

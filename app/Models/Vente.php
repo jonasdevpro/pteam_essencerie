@@ -22,4 +22,5 @@ class Vente extends Model
     {
         return $this->belongsTo(Produit::class);
     }
+    
 }
