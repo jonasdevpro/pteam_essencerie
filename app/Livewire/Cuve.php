@@ -29,8 +29,6 @@ class Cuve extends Component
         ])->extends('layouts.app')->title('configuration des cuves');
     }
 
-
-
     public function openModalWithParameter(string $modalName, ModelCuve $tank){
         $this->openModal($modalName);
         $this->tank = $tank;

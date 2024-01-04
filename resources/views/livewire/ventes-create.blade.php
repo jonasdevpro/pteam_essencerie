@@ -92,22 +92,32 @@
                     @enderror
                 </div>
                 <hr>
-                <div class="form-row">
-                    <div class="form-group col-6">
-                        <label for="selectProduit">Choisissez un produit</label>
-                        <select class="form-control" wire:model="selectedProduit">
-                            <option value="aucun-produit">Sélectionnez un produit</option>
-                            {{-- @dump($listeProduits) --}}
-                            @foreach ($listeProduits as $produit)
-                                <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="quantiteVendue">Quantité vendue</label>
-                        <input type="number" class="form-control" wire:model="quantiteVendue">
-                    </div>
+                <div class="form-group">
+                    <label for="nombreProduits">Nombre de produits à ajouter</label>
+                    <input type="number" class="form-control" wire:model.live="nombreProduits">
                 </div>
+
+                @if ($nombreProduits > 0)
+                    <div class="form-row">
+                        @for ($i = 1; $i <= $nombreProduits; $i++)
+                            <div class="form-group col-6">
+                                <label for="selectProduit{{ $i }}">Choisissez un produit</label>
+                                <select class="form-control" wire:model="selectedProduits.{{ $i }}">
+                                    <option value="">Sélectionnez un produit</option>
+                                    @foreach ($listeProduits as $produit)
+                                        <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="quantiteVendue{{ $i }}">Quantité vendue</label>
+                                <input type="number" class="form-control"
+                                    wire:model="quantitesVendues.{{ $i }}">
+                            </div>
+                        @endfor
+                    </div>
+                @endif
+
 
 
             </div>
