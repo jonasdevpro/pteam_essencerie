@@ -29,7 +29,6 @@ class Employe extends Component
 
 
 
-
     public function ajouter()
     {
         $this->create = true;
@@ -45,6 +44,7 @@ class Employe extends Component
         'prenom' => 'required|string|min:2',
         'tel' => 'required|numeric|min:8',
         'active' => 'required|boolean',
+        'role' => 'required|boolean',
     ]);
     // $this->validate([
     //     'nom' => 'required|string|min:2',
@@ -71,14 +71,12 @@ class Employe extends Component
 
     public function startEdite(User $user)
     {
-        $this->editId = $user->id;
+      
         $this->nom = $user->nom;
         $this->prenom = $user->prenom;
         $this->tel = $user->tel;
         $this->active = $user->active;
         $this->role = $user->role;
-        
-
         $this->resetPage();
     }
 
@@ -87,11 +85,8 @@ class Employe extends Component
     {
         
         $user->update($this->only('nom','prenom','tel','active','role'));
-
+               
         return redirect()->to('employers');
-
-        $user->update($this->only('nom','prenom','tel'));
-
     }
 
     public function annuler(){
@@ -110,6 +105,7 @@ class Employe extends Component
     {
         $this->user = $user;
     }
+
 
     public function confirmDeleteUser($userId)
     {

@@ -83,11 +83,19 @@
                         <td>{{ $user->role ? 'oui' : 'non' }}</td>
                         <td>{{ $user->role }}</td>
                         <td>
-                            <button class="btn btn-primary" wire:click="startEdite('{{ $user->id }}')"><i
-                                    class="nav-icon fa-solid fa-pen"></i></button>
-                        </td>
-
-                        <!-- Vue Livewire -->
+                            <button class="btn btn-primary" wire:click="startEdite({{ $user->id }})">
+                            <i class="nav-icon fa-solid fa-pen"></i>
+                        </button>                        
+                            
+                      </td>
+                        <td>
+                            <button class="btn btn-danger" wire:click="confirmDeleteUser('{{ $user->id }}')">
+                                <i class="nav-icon fa-solid fa-trash"></i></button>
+                                
+                            </td>
+                        </tr>
+                        
+                        
                         @if ($showModal)
                             <div class="modal" tabindex="-1" style="display: block; ">
                                 <div class="modal-dialog">
@@ -110,21 +118,10 @@
                                 </div>
                             </div>
                         @endif
-
-
-                        <td>
-                            <button class="btn btn-danger" wire:click="deleteUser('{{ $user->id }}')"><i
-                                    class="nav-icon fa-solid fa-trash"></i></button>
-
-                        </td>
-                    </tr>
-
-
-
-                    @if ($editId == $user->id)
+                        
+                        @if ($editId == $user->id)
                         <tr>
-                            <form wire:submit.prevent="save('{{ $user->id }}')" id="a"
-                                class="form-control">
+                            <form wire:submit.prevent="save('{{ $user->id }}')" id="a" >
                                 {{-- <td><input wire:model="id" type="number" name="id"></td> --}}
                                 <td><input wire:model="nom" type="text" name="nom"></td>
                                 <td><input wire:model="prenom" type="text" name="prenom"></td>
@@ -152,7 +149,7 @@
                                 </td>
                                 <td>
                                     <div class="button">
-                                        <button class="btn btn-light" wire:click="annuler">Annuler</button>
+                                        <button class="btn btn-close" wire:click="annuler">Annuler</button>
                                     </div>
                                 </td>
                             </form>
