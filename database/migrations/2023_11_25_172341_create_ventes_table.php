@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('montant');
             $table->string('montant_recu');
             $table->string('ecart');
+            // $table->integer('qte_produis_vendues')->default(0);
             $table->boolean('active')->default(true);
             $table->foreignUuid('chef_piste_id');
             $table->foreignUuid('pompiste_id');

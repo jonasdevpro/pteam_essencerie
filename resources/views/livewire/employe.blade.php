@@ -1,31 +1,38 @@
 <div class="container mt-4">
     <div class="row mb-4">
+        <div class="col-md-12 text-center">
+            <h2>Station d'essence XYZ</h2>
+            <p>Bienvenue sur la plateforme de gestion de la station d'essence</p>
+        </div>
         <div class="col-md-6">
-            <label for="search" class="form-label">Recherche</label>
+            <label for="search" class="form-label">Rechercher un utilisateur </label>
             <div class="input-group">
                 <input type="text" class="form-control" wire:model.live="recherche"
                     placeholder="Rechercher un utilisateur">
                 <div class="mx-2">
-                    <button class="btn btn-warning" wire:click="ajouter">
-                        Ajouter
-                    </button>
+                    <button class="btn btn-warning" wire:click="ajouter">Ajouter</button>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 d-flex align-items-end justify-content-end">
-            <form>
-                <button wire:click="logout" class="btn btn-danger">Déconnexion</button>
-            </form>
+        <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <!-- Ajout de l'icône de pompe à essence -->
+            <img src="{{ asset('dist/img/logo.jpg') }}" width="10%" alt="Station"
+                class="brand-image img-circle elevation-4" style="opacity: .8">
+
+            <!-- Ajout du statut du système -->
+            <span class="badge badge-success">Système en ligne</span>
+
+            <!-- Ajoutez ici d'autres éléments liés à une station d'essence -->
         </div>
     </div>
+
 
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    {{-- <th>ID</th> --}}
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Téléphone</th>
@@ -37,30 +44,61 @@
             </thead>
             <tbody>
 
+                @if($create)
+                <tr>
+                    {{-- <td><input wire:model="id" name="id" type="number"></td> --}}
+                    <td><input wire:model="nom" class="form-control @error('password') is-invalid @enderror" type="text" name="nom" placeholder="{{ $user->nom }}"></td>
+                    <td><input wire:model="prenom" type="text" name="prenom" value="{{ $user->prenom }}"></td>
+                    <td><input wire:model="tel" type="number" name="tel" value="{{ $user->tel }}"></td>
+                    <td>
+                    <select name="active" id="" wire:model="active">
+                        <option value="1">Oui</option>
+                        <option value="0">Non</option>
+
+                    </select>
+                    </td>
+                   <td> <select name="role" id="" wire:model="role">
+                        <option value="pompiste">Gérant</option>
+                        <option value="chef_piste"> Chef_piste</option>
+                        <option value="Pompiste">Pompiste</option>
+                         </select>
+                   
+                    <td>
+                        <div class="button">
+                            <button class="btn btn-primary" wire:click="saveNew">Créer</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="button">
+                            <button  class="btn-close" wire:click="annuler">Annuler</button>
+                        </div>
+                    </td>
+                   
+                </tr>
+            @endif
+                @foreach($users as $user)
+
                 @if ($create)
                     <tr>
-                        {{-- <td><input wire:model="id" name="id" type="number"></td> --}}
-                        <td><input wire:model="nom" class="form-control @error('password') is-invalid @enderror"
-                                type="text" name="nom" placeholder="{{ $user->nom }}"></td>
-                        <td><input wire:model="prenom"
-                                class="form-control @error('password') is-invalid @enderror"type="text" name="prenom"
-                                value="{{ $user->prenom }}"></td>
-                        <td><input wire:model="tel"
-                                class="form-control @error('password') is-invalid @enderror"type="number" name="tel"
-                                value="{{ $user->tel }}"></td>
+                        <td><input wire:model="nom" class="form-control" type="text"
+                                placeholder="{{ $user->nom }}"></td>
+                        <td><input wire:model="prenom" class="form-control" type="text" value="{{ $user->prenom }}">
+                        </td>
+                        <td><input wire:model="tel" class="form-control" type="number" value="{{ $user->tel }}">
+                        </td>
                         <td>
-                            <select name="active" id="" wire:model="active">
+                            <select name="active" wire:model="active" class="form-control">
                                 <option value="1">Oui</option>
                                 <option value="0">Non</option>
-
                             </select>
                         </td>
-                        <td> <select name="role" id="" wire:model="role">
+                        <td>
+                            <select name="role" wire:model="role" class="form-control">
                                 <option value="pompiste">Gérant</option>
-                                <option value="chef_piste"> Chef_piste</option>
+                                <option value="chef_piste">Chef_piste</option>
                                 <option value="Pompiste">Pompiste</option>
                             </select>
-
+                        </td>
                         <td>
                             <div class="button">
                                 <button class="btn btn-primary" wire:click="saveNew">Créer</button>
@@ -68,15 +106,14 @@
                         </td>
                         <td>
                             <div class="button">
-                                <button class="btn-close" wire:click="annuler">Annuler</button>
+                                <button class="btn btn-light" wire:click="annuler">Annuler</button>
                             </div>
                         </td>
-
                     </tr>
                 @endif
+
                 @foreach ($users as $user)
                     <tr>
-                        {{-- <td>{{ $user->id }}</td> --}}
                         <td>{{ $user->nom }}</td>
                         <td>{{ $user->prenom }}</td>
                         <td>{{ $user->tel }}</td>
@@ -127,16 +164,15 @@
                                 <td><input wire:model="prenom" type="text" name="prenom"></td>
                                 <td><input wire:model="tel" type="number" name="tel"></td>
                                 <td>
-                                    <select name="active" id="" wire:model="active">
-                                        <option value="1" @if ($active == 1) selected @endif>
-                                            Oui</option>
-                                        <option value="0" @if ($active == 0) selected @endif>
-                                            Non</option>
+                                    <select name="active" wire:model="active" class="form-control">
+                                        <option value="1" @if ($active == 1) selected @endif>Oui
+                                        </option>
+                                        <option value="0" @if ($active == 0) selected @endif>Non
+                                        </option>
                                     </select>
                                 </td>
-
                                 <td>
-                                    <select name="role" id="" wire:model="role">
+                                    <select name="role" wire:model="role" class="form-control">
                                         @foreach (['gerant', 'chef_piste', 'pompiste'] as $roleOption)
                                             <option value="{{ $roleOption }}"
                                                 @if ($role == $roleOption) selected @endif>
@@ -149,7 +185,7 @@
                                 </td>
                                 <td>
                                     <div class="button">
-                                        <button class="btn btn-close" wire:click="annuler">Annuler</button>
+                                        <button class="btn btn-light" wire:click="annuler">Annuler</button>
                                     </div>
                                 </td>
                             </form>
@@ -159,6 +195,4 @@
             </tbody>
         </table>
     </div>
-
-
 </div>

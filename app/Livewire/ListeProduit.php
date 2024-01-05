@@ -13,15 +13,13 @@ class ListProduit extends Component
         if($produit)
         {
             $produit->delete();
-        }
 
+        }
 
     }
 
-
     public function render()
     {
-
         return view('livewire.list-produit', [
             'produits' => Produit::paginate(10),
         ]);

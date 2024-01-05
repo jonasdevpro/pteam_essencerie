@@ -13,8 +13,8 @@ class Employe extends Component
 {
 
     use WithPagination;
+    //declare variables
     public string $recherche = '';
-
     public $editId = null;
     public $nom = "";
     public $user;
@@ -25,6 +25,8 @@ class Employe extends Component
     public $create = false;
     public $showModal = false;
     public $userIdToDelete;
+    public $show_user;
+
 
 
 
@@ -33,36 +35,24 @@ class Employe extends Component
     {
         $this->create = true;
     }
-
-
     
     public function saveNew()
     {
-      
-    $this->validate([
-        'nom' => 'required|string|min:2',
-        'prenom' => 'required|string|min:2',
-        'tel' => 'required|numeric|min:8',
-        'active' => 'required|boolean',
-        'role' => 'required|boolean',
-    ]);
-    // $this->validate([
-    //     'nom' => 'required|string|min:2',
-    //     'prenom' => 'required|string|min:2',
-    //     'tel' => 'required|numeric|min:8',
-    //     'active' => 'required|boolean',
-    // ]);
+        $this->validate([
+            'nom' => 'required|string|min:2',
+            'prenom' => 'required|string|min:2',
+            'tel' => 'required|numeric|min:8',
+            'active' => 'required|boolean',
+        ]);
     User::create([
-
         'nom'=>$this->nom,
         'prenom'=>$this->prenom,
         'tel'=>$this->tel,
         'active'=>$this->active,
         'role'=>$this->role,
-
-    ]) ;
-    return redirect()->to('/employers');
-    
+        ]) ;
+        session()->flash('success', 'Utilisateur créé avec succès!');
+        return redirect()->to('/employers');
     }
 
     protected $queryString = [
@@ -79,8 +69,7 @@ class Employe extends Component
         $this->role = $user->role;
         $this->resetPage();
     }
-
-
+    
     public function save(User $user)
     {
         
@@ -95,15 +84,10 @@ class Employe extends Component
 
     }
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->to('login');
-    }
-
     public function mount(User $user)
     {
         $this->user = $user;
+
     }
 
 
@@ -119,19 +103,22 @@ class Employe extends Component
     }
 
     public function deleteUser($userId)
-{
-    $user = User::find($userId);
+    {
+        $user = User::find($userId);
 
-    if ($user) {
-        $user->delete();
+        if ($user) {
+            $user->delete();
+        }
+        return redirect()->to('employers');
+        
     }
-    return redirect()->to('employers');
-
     
-}
-
-
-
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->to('login');
+    }
+    
     public function render()
     {
         return view('livewire.employe',[

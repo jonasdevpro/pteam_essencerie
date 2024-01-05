@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('configurations', function (Blueprint $table) {
-            $table->id();
-            $table->integer('prix_litre_essence');
-            $table->integer('prix_litre_diesel');
-            $table->time('heure_debut_service_matin');
-            $table->time('heure_releve');
-            $table->time('heure_fin_service_soir');
+        Schema::create('commandes', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->integer('total_vente');
+            $table->integer('total_quantite');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('configurations');
+        Schema::dropIfExists('commandes');
     }
 };
