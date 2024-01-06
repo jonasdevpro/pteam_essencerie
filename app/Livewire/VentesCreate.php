@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Validator;
 
 class VentesCreate extends Component
 {
-    public $index_arrive_essence = 0;
-    public $index_depart_essence = 0;
-    public $index_depart_gazoile = 0;
-    public $index_arrive_gazoile = 0;
+    public $index_arrive_essence;
+    public $index_depart_essence;
+    public $index_depart_gazoile;
+    public $index_arrive_gazoile;
     public $heureService;
     public $pompisteId;
     public $pompeId;
@@ -30,10 +30,13 @@ class VentesCreate extends Component
     public $users;
     public $unite_e;
     public $unite_g;
-    public $montant_recu = 0;
+    // public  $montant_recu = 0;
+    public $montant_tpe;
+    public $montant_espece;
+    public $montant_bon;
     public $listeProduits;
     // public $selectedProduit;
-    public $nombreProduits;
+    public $nombreProduits = 0;
     public $selectedProduits=[];
     public $quantitesVendues=[];
 
@@ -49,6 +52,7 @@ class VentesCreate extends Component
         $this->unitePrix();
         $this->config();
         $this->listeProduits = Produit::all();
+        
         for ($i = 1; $i <= $this->nombreProduits; $i++) {
             $this->selectedProduits[$i] = null;
             $this->quantitesVendues[$i] = null;
@@ -58,6 +62,7 @@ class VentesCreate extends Component
     private function rules()
     {
         return [
+            
             'pompeId' => 'required',
             'pompisteId' => 'required',
             'heureService' => 'required',
@@ -66,6 +71,10 @@ class VentesCreate extends Component
             'index_depart_gazoile' => 'required|numeric',
             'index_arrive_gazoile' => 'required|numeric',
             'montant_recu' => 'required|numeric',
+            'montant_bon' => 'required|numeric',
+            'montant_tpe' => 'required|numeric',
+            'montant_espece' => 'required|numeric',
+            
         ];
     }
 
@@ -76,6 +85,7 @@ class VentesCreate extends Component
         $prixEssence = ($this->index_arrive_essence - $this->index_depart_essence) * $this->unite_e;
         $prixGazoile = ($this->index_arrive_gazoile - $this->index_depart_gazoile) * $this->unite_g;
         $montant = $prixGazoile + $prixEssence;
+        $montant_recu = $this->montant_espece + $this->montant_bon + $this->montant_tpe;
         $ecart = $this->montant_recu - $montant;
 
         try {
