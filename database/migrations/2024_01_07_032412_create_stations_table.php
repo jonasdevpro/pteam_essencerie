@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('stations', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('nom');
+            $table->string('nom_station');
+            $table->string('image_fond');
+            $table->string('image_logo');
             $table->foreignUuid('gerant_id');
             $table->timestamps();
         });

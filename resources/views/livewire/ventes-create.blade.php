@@ -1,9 +1,9 @@
 <div>
-    @dump($this)
+    {{-- @dump($this) --}}
     <div class="container-fluid">
         <h4 class="text-center bg-danger p-2">Feuille de routes de Pompistes</h4>
         <x-custom.message-alert />
-        <form wire:submit.prevent="saveVentes">
+        <form wire:submit="saveVentes">
             @csrf
             <div class="row">
                 <div class="col-8 border border-default border-3 border-solid">

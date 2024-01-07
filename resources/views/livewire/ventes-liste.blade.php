@@ -33,15 +33,11 @@
                             <td><a
                                     href="{{ route('vente.show', ['id' => $vente->id]) }}">{{ $vente->created_at->format('d-m-Y') }}</a>
                             </td>
-                            {{-- <td><a wire:click="showDetailVentes({{ $vente->id }})"
-                                    style="cursor: pointer;">{{ $vente->created_at->format('d-m-Y') }}
-                                  </a>
-                            </td> --}}
                             <td>{{ $vente->qte_essence }}</td>
                             <td>{{ $vente->prix_essence }} FCFA</td>
                             <td>{{ $vente->qte_gazoile }}</td>
                             <td>{{ $vente->prix_gazoile }} FCFA</td>
-                            <td>{{ $vente->montant }} FCFA</td>
+                            <td>{{ $vente->montant_total_normal }} FCFA</td>
                         </tr>
                     @empty
                         <td colspan="6">

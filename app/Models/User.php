@@ -26,6 +26,11 @@ class User extends Authenticatable
     protected $guarded = [];
     protected $username='telephone';
 
+    public function stations()
+    {
+        return $this->hasMany(Station::class, 'gerant_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

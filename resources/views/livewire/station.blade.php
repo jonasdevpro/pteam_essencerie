@@ -121,51 +121,73 @@
                                     </div>
                                     <!-- /.tab-pane -->
                                     <div class="tab-pane" id="timeline">
-                                        <form class="form-horizontal">
+                                        {{-- @if ($stations) --}}
+                                        <form class="form-horizontal" wire:submit="SaveStation">
+                                            @csrf
                                             <div class="form-group row">
-                                                <label for="nom_station" class="col-sm-2 col-form-label">Nom
+                                                <label for="image_logo" class="col col-form-label">Logo
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" name="image_logo" class="form-control"
+                                                        id="image_logo">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="nom_station" class="col-sm-2 col-form-label">
                                                     Staion</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputName"
+                                                    <input type="text" wire:model="nom_station" class="form-control"
+                                                        id="nom_station" name="nom_station"
                                                         placeholder="Entrer le nom de la Station">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputEmail"
-                                                    class="col-sm-2 col-form-label">Responsable</label>
+                                                <label for="nom_gerant" class="col-sm-2 col-form-label">Gérant</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="nom_gerant"
+                                                    <input type="text" wire:model="nom_gerant" class="form-control"
+                                                        id="nom_gerant"
                                                         placeholder="Entrer le nom du responsable ou Gérant">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">Numéro de
+                                                <label for="tel_station" class="col-sm-2 col-form-label">Numéro de
                                                     Teléphone</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="tel_station"
-                                                        placeholder="Name">
+                                                    <input type="number" wire:model="tel_station" class="form-control"
+                                                        id="tel_station" placeholder="Numero de telephone">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="image_fond" class="col col-form-label">Image
+                                                    Fond</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" wire:model="image_fond" class="form-control"
+                                                        id="image_fond">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-danger">Enrégistrer</button>
+                                                    <button type="submit" class="btn btn-danger">Enregistrer</button>
                                                 </div>
                                             </div>
                                         </form>
+                                        {{-- @endif --}}
                                     </div>
                                     <!-- /.tab-pane -->
 
                                     <div class="tab-pane" id="settings">
                                         <form class="form-horizontal">
                                             <div class="form-group row">
-                                                <label for="nom_station" class="col-sm-2 col-form-label">Ancien</label>
+                                                <label for="nom_station"
+                                                    class="col-sm-2 col-form-label">Ancien</label>
                                                 <div class="col-sm-10">
                                                     <input type="password" class="form-control" id="inputName"
                                                         placeholder="Entrer votre ancien mot de passe">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">Nouveau</label>
+                                                <label for="inputEmail"
+                                                    class="col-sm-2 col-form-label">Nouveau</label>
                                                 <div class="col-sm-10">
                                                     <input type="password" class="form-control" id="nom_gerant"
                                                         placeholder="Entrer le nouveau mot de passe">

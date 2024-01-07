@@ -23,4 +23,13 @@ class Vente extends Model
         return $this->belongsTo(Produit::class);
     }
     
+    public function pompiste()
+    {
+        return $this->belongsTo(User::class, 'pompiste_id');
+    }
+    public function chef_piste()
+    {
+        return $this->belongsTo(User::class, 'chef_piste_id');
+    }
+    
 }
