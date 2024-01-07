@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use DateTime;
+use Exception;
 use App\Models\User;
 use App\Models\Pompe;
 use App\Models\Vente;
@@ -10,32 +11,29 @@ use App\Models\Produit;
 use Livewire\Component;
 use App\Models\Configuration;
 use App\Models\VentesProduit;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class VentesCreate extends Component
 {
-    public $index_arrive_essence;
-    public $index_depart_essence;
-    public $index_depart_gazoile;
-    public $index_arrive_gazoile;
+    public $index_arrive_essence = 10;
+    public $index_depart_essence = 1;
+    public $index_depart_gazoile = 05;
+    public $index_arrive_gazoile = 20;
     public $heureService;
     public $pompisteId;
     public $pompeId;
-    public $lubrifiant_vendu = 0;
-    public $gaz_vendu = 0;
     public $horaires = [];
     public $liste_pompe;
     public $users;
     public $unite_e;
     public $unite_g;
-    // public  $montant_recu = 0;
-    public $montant_tpe;
-    public $montant_espece;
-    public $montant_bon;
+    public $montant_tpe = 0;
+    public $montant_espece = 0;
+    public $montant_bon = 0;
     public $listeProduits;
-    // public $selectedProduit;
     public $nombreProduits = 0;
     public $selectedProduits=[];
     public $quantitesVendues=[];
@@ -52,11 +50,6 @@ class VentesCreate extends Component
         $this->unitePrix();
         $this->config();
         $this->listeProduits = Produit::all();
-        
-        for ($i = 1; $i <= $this->nombreProduits; $i++) {
-            $this->selectedProduits[$i] = null;
-            $this->quantitesVendues[$i] = null;
-        }
     }
 
     private function rules()
@@ -70,27 +63,31 @@ class VentesCreate extends Component
             'index_arrive_essence' => 'required|numeric',
             'index_depart_gazoile' => 'required|numeric',
             'index_arrive_gazoile' => 'required|numeric',
-            'montant_recu' => 'required|numeric',
-            'montant_bon' => 'required|numeric',
-            'montant_tpe' => 'required|numeric',
-            'montant_espece' => 'required|numeric',
+            'montant_espece' => 'numeric|numeric',
+            'montant_tpe' => 'numeric|numeric',
+            'montant_bon' => 'numeric|numeric',
             
         ];
     }
 
     public function saveVentes()
     {
-        $this->validate($this->rules());
-
-        $prixEssence = ($this->index_arrive_essence - $this->index_depart_essence) * $this->unite_e;
-        $prixGazoile = ($this->index_arrive_gazoile - $this->index_depart_gazoile) * $this->unite_g;
-        $montant = $prixGazoile + $prixEssence;
-        $montant_recu = $this->montant_espece + $this->montant_bon + $this->montant_tpe;
-        $ecart = $this->montant_recu - $montant;
-
         try {
-            // Création de la vente principale
-            $vente = new Vente([
+            // Validation des données
+            $this->validate($this->rules());
+
+            // Début de la transaction
+            DB::beginTransaction();
+
+            // Calcul des montants
+            $prixEssence = ($this->index_arrive_essence - $this->index_depart_essence) * $this->unite_e;
+            $prixGazoile = ($this->index_arrive_gazoile - $this->index_depart_gazoile) * $this->unite_g;
+            $montant = $prixGazoile + $prixEssence;
+            $montant_total_recu = ($this->montant_espece + $this->montant_bon + $this->montant_tpe);
+            $ecart = $montant - $montant_total_recu;
+
+            // Création de la vente principale avec la méthode create
+            $vente = Vente::create([
                 'chef_piste_id' => Auth::user()->id,
                 'pompiste_id' => $this->pompisteId,
                 'pompe_id' => $this->pompeId,
@@ -103,29 +100,19 @@ class VentesCreate extends Component
                 'prix_essence' => $prixEssence,
                 'qte_gazoile' => $this->index_arrive_gazoile - $this->index_depart_gazoile,
                 'prix_gazoile' => $prixGazoile,
-                'montant_recu' => $this->montant_recu,
-                'montant' => $montant,
+                'montant_total_recu' => $montant_total_recu,
+                'montant_total_normal' => $montant,
                 'ecart' => $ecart,
+                'montant_espece' => $this->montant_espece,
+                'montant_tpe' => $this->montant_tpe,
+                'montant_bon' => $this->montant_bon,
             ]);
 
-            // Enregistrement de la vente principale
-            $vente->save();
-
             // Enregistrement des produits vendus dans la table pivot
-            for ($i = 1; $i <= $this->nombreProduits; $i++) {
-                if ($this->selectedProduits[$i] && $this->quantitesVendues[$i]) {
-                    $produit = Produit::find($this->selectedProduits[$i]);
-
-                    $vente_produit = new VentesProduit([
-                        'produit_id' => $this->selectedProduits[$i],
-                        'vente_id' => $vente->id,
-                        'qte_produis_vendues' => $this->quantitesVendues[$i],
-                        'prix_unitaire' => $produit->prix,
-                    ]);
-
-                    $vente_produit->save();
-                }
-            }
+            $this->saveVentesProduits($vente);
+            
+            // Validation réussie, commit de la transaction
+            DB::commit();
 
             // Réinitialisation des champs du formulaire
             $this->reset([
@@ -136,14 +123,42 @@ class VentesCreate extends Component
                 'index_arrive_essence',
                 'index_depart_gazoile',
                 'index_arrive_gazoile',
-                'montant_recu',
+                'montant_espece',
+                'montant_tpe',
+                'montant_bon',
             ]);
 
             session()->flash('success', 'Opération créée avec succès!');
             $this->redirect('/vente_index');
-        } catch (\PDOException $e) {
-            Log::error('Erreur PDO: ' . $e->getMessage());
+        } catch (Exception $e) {
+            // En cas d'erreur, rollback de la transaction
+            DB::rollBack();
+
+            Log::error('Erreur lors de la création de la vente: ' . $e->getMessage() . PHP_EOL . $e->getTraceAsString());
+            // dd($e);
             $this->redirect('/vente_index');
+        }
+    }
+    private function saveVentesProduits(Vente $vente)
+    {
+        for ($i = 1; $i <= $this->nombreProduits; $i++) {
+            if ($this->selectedProduits[$i] && $this->quantitesVendues[$i]) {
+                $produit = Produit::find($this->selectedProduits[$i]);
+
+                if ($produit) {
+                    // Soustraire la quantité vendue du stock
+                    $produit->stock -= $this->quantitesVendues[$i];
+                    $produit->save();
+
+                    // Enregistrez la relation VentesProduit
+                    $vente_produit = VentesProduit::create([
+                        'produit_id' => $this->selectedProduits[$i],
+                        'vente_id' => $vente->id,
+                        'qte_produis_vendues' => $this->quantitesVendues[$i],
+                        'prix_unitaire' => $produit->prix,
+                    ]);
+                }
+            }
         }
     }
 

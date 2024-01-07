@@ -22,10 +22,12 @@ return new class extends Migration
             $table->string('prix_essence');
             $table->string('qte_gazoile');
             $table->string('prix_gazoile');
-            $table->string('montant');
-            $table->string('montant_recu');
+            $table->string('montant_total_normal');
+            $table->string('montant_espece');
+            $table->string('montant_tpe');
+            $table->string('montant_bon');
+            $table->string('montant_total_recu');
             $table->string('ecart');
-            // $table->integer('qte_produis_vendues')->default(0);
             $table->boolean('active')->default(true);
             $table->foreignUuid('chef_piste_id');
             $table->foreignUuid('pompiste_id');
